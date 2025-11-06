@@ -1,6 +1,6 @@
 import requests
 from typing import Optional, Union
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 
 
 # ==== Nested Models ====
@@ -130,10 +130,14 @@ class DeviceData(BaseModel):
 # ==== Fetch + Parse JSON ====
 
 def retrive_updated_data() -> DeviceData:
-    response = requests.get("http://localhost:8081/carelink/nohistory")
-    response.raise_for_status()  # ensure 200 OK
-    updated_data = DeviceData.model_validate_json(response.text)
-    return updated_data
+    try:
+        response = requests.get("http://localhost:8081/carelink/nohistory", timeout=5)
+        response.raise_for_status()
+        updated_data = DeviceData.model_validate_json(response.text)
+        return updated_data
+    except (requests.RequestException, ValidationError) as e:
+        print(f"Error retrieving device data: {e}")
+        return None
 
 
 if __name__ == "__main__":
