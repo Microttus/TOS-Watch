@@ -38,11 +38,11 @@ def print_updated_data():
     if updated_data is None:
         print("Server not available")
         return None
-    trend = Trend[updated_data.lastSGTrend]
+    trend = updated_data.lastSGTrend
 
     print(f"Last update: {updated_data.lastConduitDateTime}, which is {minutes_since_last_update(updated_data.lastConduitDateTime):.0f} minutes ago")
 
-    print(f"Last trend {updated_data.lastSGTrend}, which is {trend.symbol}.")
+    print(f"Last trend {updated_data.lastSGTrend}, which is {trend}.")
 
     print(f"Last SG {updated_data.lastSG.sg}, and in mmol/L {us_to_eu_value(updated_data.lastSG.sg):.1f}.")
 
