@@ -52,7 +52,6 @@ def get_selected_data() -> TrendData | None:
     if updated_data is None:
         return None
 
-    trend = Trend[updated_data.lastSGTrend]
     current_trend = TrendData(
         minutes_since_last_update=minutes_since_last_update(updated_data.lastConduitDateTime),
         lastSG=us_to_eu_value(updated_data.lastSG.sg),
