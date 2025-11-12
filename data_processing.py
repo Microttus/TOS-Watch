@@ -18,24 +18,13 @@ from dataclasses import dataclass
 
 ## Data classes
 
-class Trend(Enum):
-    NONE = ("x", 0x00)
-    UP = ("↑", 0x01)
-    UP_DOUBLE = ("⇈", 0x02)
-    UP_TRIPLE = ("⤊", 0x03)
-    DOWN = ("↓", 0x04)
-    DOWN_DOUBLE = ("⇊", 0x05)
-    DOWN_TRIPLE = ("⤋", 0x06)
-
-    def __init__(self, symbol: str, code: int):
-        self.symbol = symbol      # For printing/logging
-        self.code = code          # For MAX7219 control
-
 @dataclass
 class TrendData:
     minutes_since_last_update: float
-    lastSGTrend: Trend
+    lastSGTrend: str
     lastSG: float
+    firstName: str
+    lastName: str
 
 
 ## Functions
@@ -67,7 +56,9 @@ def get_selected_data() -> TrendData | None:
     current_trend = TrendData(
         minutes_since_last_update=minutes_since_last_update(updated_data.lastConduitDateTime),
         lastSG=us_to_eu_value(updated_data.lastSG.sg),
-        lastSGTrend=trend,
+        firstName=updated_data.firstName,
+        lastName=updated_data.lastName,
+        lastSGTrend=updated_data.lastSGTrend,
     )
     return current_trend
 
