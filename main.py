@@ -12,7 +12,9 @@
 import logging
 import time
 from data_processing import get_selected_data, TrendData
-import screen_print
+from screen_print import ScreenPrint
+
+led_screen = ScreenPrint(cascaded=4, block_orientation=-90)
 
 def welcome_message():
     w_msg = "Welcome to the TOS-Watch"
