@@ -10,6 +10,7 @@
 #######################################################
 
 import logging
+import time
 from data_processing import get_selected_data, TrendData
 import screen_print
 
@@ -33,7 +34,9 @@ def update_screen():
 
 def main():
     welcome_message()
+    time.sleep(1)
     update_screen()
+    time.sleep(5)
 
 if __name__ == "__main__":
     main()
