@@ -23,6 +23,17 @@ class ScreenPrint(object):
     def update_text(self, msg : str) -> None:
         show_message(self.device, msg, fill="white", font=proportional(CP437_FONT))
 
+    def wifi_wait_screen(self) -> None:
+        with canvas(self.device) as draw:
+            for x,y in TREND_SYMBOLS.get("NO_WIFI", []):
+                draw.point((x, y), fill="white")
+
+    def confirm_wifi_screen(self, unit_ip : str) -> None:
+        with canvas(self.device) as draw:
+            text(draw, (8,0), unit_ip, fill="white", font=proportional(TINY_FONT))
+            for x,y in TREND_SYMBOLS.get("WIFI", []):
+                draw.point((x, y), fill="white")
+
     def update_screen(self, last_trend : TrendData) -> None:
         if last_trend is None:
             logging.warning(f"Last Trend was empty!")

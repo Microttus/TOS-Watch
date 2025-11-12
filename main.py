@@ -12,15 +12,29 @@
 import logging
 import time
 from data_processing import get_selected_data, TrendData
+from wifi_helper import wait_for_wifi
 from screen_print import ScreenPrint
 
 led_screen = ScreenPrint(cascaded=4, block_orientation=-90)
 
 def welcome_message():
-    w_msg = "Welcome to the TOS-Watch"
+    w_msg = "Initiating TOS-Watch"
     logging.info(w_msg)
-    screen_print.update_text(w_msg)
+    led_screen.update_text(w_msg)
 
+def wifi_wait_screen():
+    led_screen.wifi_wait_screen()
+    ip_addr = wait_for_wifi()
+    led_screen.confirm_wifi_screen(ip_addr)
+    return
+
+def profile_screen():
+    logging.info("Profiling screen attemting")
+    first_data = get_selected_data()
+    profile_name = "Welcome: " + first_data.firstName + " " + first_data.lastName
+    logging.info(profile_name)
+    led_screen.update_text(profile_name)
+    return
 
 def update_screen():
     logging.info("Attempting to update data")
@@ -30,15 +44,20 @@ def update_screen():
         return
 
     ## Updating screen
-    screen_print.update_screen(new_data)
+    led_screen.update_screen(new_data)
 
     return
 
 def main():
     welcome_message()
     time.sleep(1)
-    update_screen()
-    time.sleep(5)
+    wifi_wait_screen()
+    time.sleep(3)
+    profile_screen()
+
+    while True:
+        update_screen()
+        time.sleep(2000)
 
 if __name__ == "__main__":
     main()

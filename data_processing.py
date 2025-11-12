@@ -47,6 +47,7 @@ def print_updated_data():
     print(f"Last SG {updated_data.lastSG.sg}, and in mmol/L {us_to_eu_value(updated_data.lastSG.sg):.1f}.")
 
 
+# noinspection PyPackageRequirements
 def get_selected_data() -> TrendData | None:
     updated_data = retrive_updated_data()
     if updated_data is None:
