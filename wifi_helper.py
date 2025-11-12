@@ -3,6 +3,7 @@
 
 import socket
 import time
+import logging
 
 
 def get_ip_address() -> str:
@@ -29,17 +30,17 @@ def wait_for_wifi(timeout: float = 30.0, interval: float = 1.0) -> str:
     Returns:
         The IP address as a string if connected, else None.
     """
-    print(f"Waiting for Wi-Fi (timeout={timeout}s)...")
+    logging.info(f"Waiting for Wi-Fi (timeout={timeout}s)...")
 
     start = time.time()
     while time.time() - start < timeout:
         ip = get_ip_address()
         if ip and not ip.startswith("127."):
-            print(f"✅ Connected with IP: {ip}")
+            logging.info(f"Connected with IP: {ip}")
             return ip
         time.sleep(interval)
 
-    print("❌ Timed out waiting for Wi-Fi.")
+    logging.error("Timed out waiting for Wi-Fi.")
     return None
 
 
