@@ -24,12 +24,10 @@ def define_screen():
 
 def update_text(msg : str) -> None:
     serial = spi(port=0, device=0, gpio=noop())
-    device = max7219(serial, cascaded=4, block_orientation=-90)
+    #device = max7219(serial, cascaded=4, block_orientation=-90)
     show_message(serial, msg, fill="white", font=proportional(CP437_FONT))
 
 def update_screen(last_trend : TrendData) -> None:
-    serial = spi(port=0, device=0, gpio=noop())
-    device = max7219(serial, cascaded=4, block_orientation=-90)
     if last_trend is None:
         logging.warning(f"Last Trend was empty!")
         return
@@ -50,6 +48,8 @@ def update_screen(last_trend : TrendData) -> None:
 
 
 def write_to_screen(last_trend : TrendData) -> None:
+    serial = spi(port=0, device=0, gpio=noop())
+    device = max7219(serial, cascaded=4, block_orientation=-90)
     if last_trend is None:
         logging.warning(f"Last Trend was empty!")
         return
