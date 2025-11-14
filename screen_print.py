@@ -56,7 +56,7 @@ class ScreenPrint(object):
             logging.warning(f"Last Trend was empty!")
             return
 
-        x_coord = 8
+        x_coord = 10
         if last_trend.lastSG < 10.0:
             x_coord += 6
 
