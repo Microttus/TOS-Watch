@@ -57,7 +57,7 @@ class ScreenPrint(object):
             return
 
         x_coord = 8
-        if last_trend.lastSG >= 10.0:
+        if last_trend.lastSG < 10.0:
             x_coord += 6
 
         with canvas(self.device) as draw:
