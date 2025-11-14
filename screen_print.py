@@ -29,10 +29,7 @@ class ScreenPrint(object):
                 draw.point((x, y), fill="white")
 
     def confirm_wifi_screen(self, unit_ip : str) -> None:
-        with canvas(self.device) as draw:
-            text(draw, (8,0), unit_ip, fill="white", font=proportional(TINY_FONT))
-            for x,y in TREND_SYMBOLS.get("WIFI", []):
-                draw.point((x, y), fill="white")
+        show_message(self.device, unit_ip, fill="white", font=proportional(CP437_FONT))
 
     def update_screen(self, last_trend : TrendData) -> None:
         if last_trend is None:
@@ -59,8 +56,12 @@ class ScreenPrint(object):
             logging.warning(f"Last Trend was empty!")
             return
 
+        x_coord = 8
+        if last_trend.lastSG >= 10.0:
+            x_coord += 6
+
         with canvas(self.device) as draw:
-            text(draw, (8,0), str(round(last_trend.lastSG,1)), fill="white", font=proportional(SINCLAIR_FONT))
+            text(draw, (x_coord,0), str(round(last_trend.lastSG,1)), fill="white", font=proportional(SINCLAIR_FONT))
             for x,y in TREND_SYMBOLS.get(last_trend.lastSGTrend, []):
                 draw.point((x, y), fill="white")
 

@@ -28,13 +28,17 @@ def wifi_wait_screen():
     led_screen.confirm_wifi_screen(ip_addr)
     return
 
-def profile_screen():
+def profile_screen() -> bool:
     logging.info("Profiling screen attemting")
     first_data = get_selected_data()
+    if first_data is None:
+        logging.warning("Server not available")
+        time.sleep(2)
+        return True
     profile_name = "Welcome: " + first_data.firstName + " " + first_data.lastName
     logging.info(profile_name)
     led_screen.update_text(profile_name)
-    return
+    return False
 
 def update_screen():
     logging.info("Attempting to update data")
@@ -53,7 +57,9 @@ def main():
     time.sleep(1)
     wifi_wait_screen()
     time.sleep(3)
-    profile_screen()
+
+    while profile_screen():
+
 
     while True:
         update_screen()
