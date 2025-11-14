@@ -1,8 +1,6 @@
 import logging
 import time
 
-import trend_symbols
-
 from luma.led_matrix.device import max7219
 from luma.core.interface.serial import spi, noop
 from luma.core.legacy import text, show_message
@@ -10,7 +8,9 @@ from luma.core.render import canvas
 from PIL import ImageFont
 from luma.core.legacy.font import proportional, CP437_FONT, TINY_FONT, SINCLAIR_FONT, LCD_FONT
 
+from data_processing import TrendData
 from trend_symbols import TREND_SYMBOLS
+
 
 
 class ScreenPrint(object):
@@ -60,7 +60,7 @@ class ScreenPrint(object):
             return
 
         with canvas(self.device) as draw:
-            text(draw, (8,0), str(last_trend.lastSG), fill="white", font=proportional(SINCLAIR_FONT))
+            text(draw, (8,0), str(round(last_trend.lastSG,1)), fill="white", font=proportional(SINCLAIR_FONT))
             for x,y in TREND_SYMBOLS.get(last_trend.lastSGTrend, []):
                 draw.point((x, y), fill="white")
 

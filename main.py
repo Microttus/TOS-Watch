@@ -57,7 +57,7 @@ def main():
 
     while True:
         update_screen()
-        time.sleep(2000)
+        time.sleep(150)
 
 if __name__ == "__main__":
     main()
