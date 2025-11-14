@@ -33,7 +33,6 @@ def profile_screen() -> bool:
     first_data = get_selected_data()
     if first_data is None:
         logging.warning("Server not available")
-        time.sleep(2)
         return True
     profile_name = "Welcome: " + first_data.firstName + " " + first_data.lastName
     logging.info(profile_name)
@@ -59,7 +58,7 @@ def main():
     time.sleep(3)
 
     while profile_screen():
-
+        time.sleep(2)
 
     while True:
         update_screen()
