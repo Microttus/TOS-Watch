@@ -46,7 +46,7 @@ class LastAlarm(BaseModel):
 
 class ActiveInsulin(BaseModel):
     amount: float
-    datetime: str
+    datetime: Optional[str] = None
     kind: str
     version: int
     precision: Optional[str] = None
@@ -56,8 +56,8 @@ class LastSG(BaseModel):
     kind: str
     version: int
     sg: int
-    sensorState: str
-    timestamp: str
+    sensorState: Optional[str] = None
+    timestamp: Optional[str] = None
 
 
 # ==== Main Root Model ====
