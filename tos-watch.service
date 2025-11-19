@@ -1,0 +1,23 @@
+[Unit]
+Description=TOS Watch Main Service
+
+[Service]
+WorkingDirectory=/home/tos-watch/TOS-Watch
+
+ExecStart=/home/tos-watch/TOS-Watch/.venv/bin/python /home/tos-watch/TOS-Watch/main.py
+
+Environment="PATH=/home/tos-watch/TOS-Watch/.venv/bin"
+Environment="VIRTUAL_ENV=/home/tos-watch/TOS-Watch/.venv"
+Environment="PYTHONUNBUFFERED=1"
+
+StandardOutput=journal
+StandardError=journal
+
+Restart=always
+RestartSec=10
+
+User=tos-watch
+Group=tos-watch
+
+[Install]
+WantedBy=multi-user.target
