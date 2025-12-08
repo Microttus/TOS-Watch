@@ -3,8 +3,10 @@ Collect data from local host and update max7219 display
 
 ## TODO
 
-- [ ] Check if data availbale before "Welcome to user"
-- [ ] Set auto start for both scrips
-- [ ] Make the IP glide over screen
-- [ ] Move number +6 if value under 10.0
-
+- [x] Check if data availbale before "Welcome to user"
+- [x] Set auto start for both scrips
+- [x] Make the IP glide over screen
+- [x] Move number +6 (+8) if value under 10.0
+- [ ] Edit clock symbol
+- [ ] Edit no wifi symbol
+- [ ] Remove 0.0 when time limit reached
