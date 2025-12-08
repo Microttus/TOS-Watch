@@ -23,13 +23,14 @@ def welcome_message():
     led_screen.update_text(w_msg)
 
 def wifi_wait_screen():
-    led_screen.wifi_wait_screen()
+    led_screen.wifi_wait_screen(False)
     ip_addr = wait_for_wifi()
     led_screen.confirm_wifi_screen(ip_addr)
     return
 
 def profile_screen() -> bool:
-    logging.info("Profiling screen attemting")
+    logging.info("Profiling screen attempting")
+    led_screen.wifi_wait_screen(True)
     first_data = get_selected_data()
     if first_data is None:
         logging.warning("Server not available")

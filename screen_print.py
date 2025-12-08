@@ -5,7 +5,6 @@ from luma.led_matrix.device import max7219
 from luma.core.interface.serial import spi, noop
 from luma.core.legacy import text, show_message
 from luma.core.render import canvas
-from PIL import ImageFont
 from luma.core.legacy.font import proportional, CP437_FONT, TINY_FONT, SINCLAIR_FONT, LCD_FONT
 
 from data_processing import TrendData
@@ -23,10 +22,14 @@ class ScreenPrint(object):
     def update_text(self, msg : str) -> None:
         show_message(self.device, msg, fill="white", font=proportional(CP437_FONT))
 
-    def wifi_wait_screen(self) -> None:
+    def wifi_wait_screen(self, wifi_up : bool) -> None:
         with canvas(self.device) as draw:
-            for x,y in TREND_SYMBOLS.get("NO_WIFI", []):
-                draw.point((x, y), fill="white")
+            if wifi_up:
+                for x,y in TREND_SYMBOLS.get("WIFI", []):
+                    draw.point((x, y), fill="white")
+            else:
+                for x,y in TREND_SYMBOLS.get("NO_WIFI", []):
+                    draw.point((x, y), fill="white")
 
     def confirm_wifi_screen(self, unit_ip : str) -> None:
         show_message(self.device, unit_ip, fill="white", font=proportional(CP437_FONT))
